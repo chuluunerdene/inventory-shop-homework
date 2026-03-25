@@ -33,7 +33,9 @@ export function normalizeAppError(error: unknown) {
   }
 
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
-    switch (error.code) {
+    const knownError = error as Prisma.PrismaClientKnownRequestError;
+
+    switch (knownError.code) {
       case "P2002":
         return new AppError("CONFLICT");
       case "P2025":

@@ -5,6 +5,7 @@ import { PaginationNav } from "@/components/pagination-nav";
 import { ProductCard } from "@/components/product-card";
 import { ProductFilters } from "@/components/product-filters";
 import { getCategories, getProductsPage } from "@/lib/data";
+import type { ProductCardItem } from "@/lib/types";
 import { buildQueryString, getBannerMessage } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -114,7 +115,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
         {productPage.products.length > 0 ? (
           <div className="product-grid">
-            {productPage.products.map((product) => (
+            {productPage.products.map((product: ProductCardItem) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

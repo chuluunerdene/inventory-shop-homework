@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { DeleteProductButton } from "@/components/delete-product-button";
 import { getCategories, getProductById } from "@/lib/data";
+import type { CategoryOption } from "@/lib/types";
 import { formatCurrency } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -28,7 +29,8 @@ export default async function ProductDetailPage({
   }
 
   const categoryName =
-    categories.find((category) => category.id === product.categoryId)?.name ??
+    categories.find((category: CategoryOption) => category.id === product.categoryId)
+      ?.name ??
     "Тодорхойгүй";
   const quantity = product.inventory?.quantity ?? 0;
   const isLowStock = quantity > 0 && quantity <= product.lowStockThreshold;

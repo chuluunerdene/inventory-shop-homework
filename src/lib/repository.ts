@@ -259,7 +259,9 @@ export async function updateProduct(productId: string, input: ProductInput) {
 
 export async function removeProduct(productId: string) {
   try {
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (rawTx) => {
+      const tx = rawTx as typeof prisma;
+
       const product = await tx.product.findUnique({
         where: { id: productId },
         select: {
@@ -351,7 +353,9 @@ export async function adjustInventory(
 
 export async function createOrder(items: CheckoutItemInput[]) {
   try {
-    return await prisma.$transaction(async (tx) => {
+    return await prisma.$transaction(async (rawTx) => {
+      const tx = rawTx as typeof prisma;
+
       const products = await tx.product.findMany({
         where: {
           id: {
@@ -369,7 +373,9 @@ export async function createOrder(items: CheckoutItemInput[]) {
         },
       });
 
-      const productMap = new Map(products.map((product) => [product.id, product]));
+      const productMap = new Map<string, (typeof products)[number]>(
+        products.map((product: (typeof products)[number]) => [product.id, product] as const),
+      );
       let totalInCents = 0;
 
       for (const item of items) {
