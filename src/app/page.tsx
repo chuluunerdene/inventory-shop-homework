@@ -60,7 +60,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <section className="hero-card">
         <div className="hero-card__content">
           <p className="eyebrow">Даалгавар</p>
-          <h1>Нөөц сагс удирдлага</h1>
+          <h1>Агуулах, сагс удирдлага</h1>
           <p className="hero-copy">
             Даалгаврын шаардлагад нийцүүлээд бүтээгдэхүүний бүртгэл, нөөцийн
             өөрчлөлт, локал сагс болон гүйлгээтэй захиалгын урсгалыг
